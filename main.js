@@ -1,37 +1,72 @@
 
 
-let stockS = 5;
-let stockM = 3;
-let stockL = 0;
-let continuar = true;
-let talle;
+const productos = [
+  { id: "Sorrentinos", precio: 100 },
+  { id: "Ravioles", precio: 200 },
+  { id: "Ñoquis", precio: 300 },
+  { id: "Panes Masa madre", precio: 500 },
+];
 
-function verificarTalle(talle) {
-    while(continuar === true){
-        talle = prompt("Ingrese el talle de la prenda (S, M o L)").toUpperCase();
-        while (talle !== "S" && talle !== "M" && talle !== "L"){
-            console.log("Ingrese el talle de la prenda (S, M o L)");
-            talle = prompt("Por favor, ingrese solamente S, M o L)");
-            talle = talle.toUpperCase();}
-            if (talle == "S" && stockS > 0){
-                stockS--;
-                console.log("Se agrego al carrito campera talle S");
-            }
-            else if (talle == "M" && stockM > 0){
-                stockM--;
-                console.log("Se agrego a carrito la campera talle M");
-                
-            }
-            else if (talle == "L" && stockL > 0){
-                stockL--;
-                console.log("Se agrego al carrito la campera talle L");
-            } else{
-                console.log("No queda Stock");
-            }
-            continuar = confirm(`Deseas continuar comprando?`)
-            
-    }
+let carrito = [];
+
+let seleccion = prompt("¿Desea comprar algún producto?");
+
+while (seleccion !== "si" && seleccion !== "no") {
+  alert("Por favor, responda con 'si' o 'no'.");
+  seleccion = prompt("¿Desea comprar algo? (si/no)");
 }
 
-verificarTalle(talle)
+if (seleccion === "si") {
+  alert("Estos son todos nuestros productos:");
+  let allProductos = productos.map((producto) => `${producto.id} - ${producto.precio}$`);
+  alert(allProductos.join(" - "));
+} else if (seleccion === "no") {
+  alert("Gracias por visitar la web, ¡vuelva pronto!");
+}
 
+while (seleccion !== "no") {
+  let producto = prompt("Escriba el nombre del producto que desea agregar al carrito");
+  let precio = 0;
+
+  if (producto === "Sorrentinos" || producto === "Ravioles" || producto === "Ñoquis" || producto === "Panes Masa madre") {
+    switch (producto) {
+      case "Sorrentinos":
+        precio = 100;
+        break;
+      case "Ravioles":
+        precio = 200;
+        break;
+      case "Ñoquis":
+        precio = 300;
+        break;
+      case "Panes Masa madre":
+        precio = 500;
+        break;
+      default:
+        break;
+    }
+
+    let unidades = parseInt(prompt("Seleccione cuántas unidades quiere llevar"));
+    carrito.push({ id: producto, unidades, precio });
+
+    seleccion = prompt("¿Desea seguir comprando o ver su carrito? (si/no/ver)");
+
+    if (seleccion === "ver") {
+      if (carrito.length === 0) {
+        alert("El carrito está vacío.");
+      } else {
+        let carritoItems = carrito.map((item) => `${item.id} - ${item.unidades} unidades - Total: ${item.unidades * item.precio}$`);
+        alert("Carrito de Compras:\n" + carritoItems.join("\n"));
+      }
+      seleccion = prompt("¿Desea seguir comprando? (si/no)");
+    }
+
+    if (seleccion !== "si" && seleccion !== "no" && seleccion !== "ver") {
+      alert("Por favor, responda con 'si', 'no' o 'ver'.");
+      seleccion = prompt("¿Desea seguir comprando? (si/no/ver)");
+    }
+  } else {
+    alert("Producto no encontrado");
+    seleccion = prompt("¿Desea seguir comprando o ver su carrito? (si/no/ver)");
+  }
+}
