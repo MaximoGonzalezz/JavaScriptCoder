@@ -1,72 +1,91 @@
+const shopContenedor = document.getElementById("shopContenedor");
+const verCarrito = document.getElementById("verCarrito");
+const modalContainer = document.getElementById("barraContainer");
 
 
 const productos = [
-  { id: "Sorrentinos", precio: 100 },
-  { id: "Ravioles", precio: 200 },
-  { id: "Ñoquis", precio: 300 },
-  { id: "Panes Masa madre", precio: 500 },
+  {
+    id: 1,
+    nombre: "sorrentinos",
+    precio: 1500,
+    img: "",
+  },
+
+  {
+    id: 1,
+    nombre: "ravioles",
+    precio: 1500,
+    img: "https://stock.adobe.com/es/search?filters%5Bcontent_type%3Aphoto%5D=1&filters%5Bcontent_type%3Aillustration%5D=1&filters%5Bcontent_type%3Azip_vector%5D=1&filters%5Bcontent_type%3Avideo%5D=1&filters%5Bcontent_type%3Atemplate%5D=1&filters%5Bcontent_type%3A3d%5D=1&filters%5Bcontent_type%3Aaudio%5D=0&filters%5Binclude_stock_enterprise%5D=0&filters%5Bis_editorial%5D=0&filters%5Bfree_collection%5D=0&filters%5Bcontent_type%3Aimage%5D=1&k=ravioles&order=relevance&safe_search=1&search_page=1&search_type=usertyped&acp=&aco=ravioles&get_facets=0&asset_id=610132820 ",
+
+  },
+  {
+    id: 1,
+    nombre: "ñoquis rellenos",
+    precio: 1300,
+    img: "https://stock.adobe.com/es/search?filters%5Bcontent_type%3Aphoto%5D=1&filters%5Bcontent_type%3Aillustration%5D=1&filters%5Bcontent_type%3Azip_vector%5D=1&filters%5Bcontent_type%3Avideo%5D=1&filters%5Bcontent_type%3Atemplate%5D=1&filters%5Bcontent_type%3A3d%5D=1&filters%5Bcontent_type%3Aimage%5D=1&order=relevance&safe_search=1&limit=100&search_page=1&search_type=usertyped&acp=&aco=%C3%B1oquis+rellenos&k=%C3%B1oquis+rellenos&get_facets=0&asset_id=495315406",
+  },
+  {
+    id: 1,
+    nombre: "ñoquis",
+    precio: 1000,
+    img: "https://stock.adobe.com/es/search?filters%5Bcontent_type%3Aphoto%5D=1&filters%5Bcontent_type%3Aillustration%5D=1&filters%5Bcontent_type%3Azip_vector%5D=1&filters%5Bcontent_type%3Avideo%5D=1&filters%5Bcontent_type%3Atemplate%5D=1&filters%5Bcontent_type%3A3d%5D=1&filters%5Bcontent_type%3Aimage%5D=1&order=relevance&safe_search=1&limit=100&search_page=1&search_type=usertyped&acp=&aco=%C3%B1oquis&k=%C3%B1oquis&get_facets=0&asset_id=330259977",
+  },
 ];
 
 let carrito = [];
 
-let seleccion = prompt("¿Desea comprar algún producto?");
+productos.forEach((producto) => {
+  let content = document.createElement("div");
+  content.className = "card";
+  content.innerHTML = `
+  <img src="${producto.img}">
+  <h3> ${producto.nombre}  </h3>
+  <p class="precio"> ${producto.precio} $ </p>
+  `;
 
-while (seleccion !== "si" && seleccion !== "no") {
-  alert("Por favor, responda con 'si' o 'no'.");
-  seleccion = prompt("¿Desea comprar algo? (si/no)");
-}
+  shopContenedor.append(content);
 
-if (seleccion === "si") {
-  alert("Estos son todos nuestros productos:");
-  let allProductos = productos.map((producto) => `${producto.id} - ${producto.precio}$`);
-  alert(allProductos.join(" - "));
-} else if (seleccion === "no") {
-  alert("Gracias por visitar la web, ¡vuelva pronto!");
-}
+  let comprar = document.createElement("button")
+  comprar.innerText = "comprar";
+  comprar.className = "comprar";
 
-while (seleccion !== "no") {
-  let producto = prompt("Escriba el nombre del producto que desea agregar al carrito");
-  let precio = 0;
+  content.append(comprar);
 
-  if (producto === "Sorrentinos" || producto === "Ravioles" || producto === "Ñoquis" || producto === "Panes Masa madre") {
-    switch (producto) {
-      case "Sorrentinos":
-        precio = 100;
-        break;
-      case "Ravioles":
-        precio = 200;
-        break;
-      case "Ñoquis":
-        precio = 300;
-        break;
-      case "Panes Masa madre":
-        precio = 500;
-        break;
-      default:
-        break;
-    }
+  comprar.addEventListener("click", () => {
+    carrito.push({
+      id: producto.id,
+      img: producto.img,
+      nombre: producto.nombre,
+      precio: producto.precio,
 
-    let unidades = parseInt(prompt("Seleccione cuántas unidades quiere llevar"));
-    carrito.push({ id: producto, unidades, precio });
+    });
+  })
 
-    seleccion = prompt("¿Desea seguir comprando o ver su carrito? (si/no/ver)");
+  });
 
-    if (seleccion === "ver") {
-      if (carrito.length === 0) {
-        alert("El carrito está vacío.");
-      } else {
-        let carritoItems = carrito.map((item) => `${item.id} - ${item.unidades} unidades - Total: ${item.unidades * item.precio}$`);
-        alert("Carrito de Compras:\n" + carritoItems.join("\n"));
-      }
-      seleccion = prompt("¿Desea seguir comprando? (si/no)");
-    }
+  verCarrito.addEventListener("click", () => {
 
-    if (seleccion !== "si" && seleccion !== "no" && seleccion !== "ver") {
-      alert("Por favor, responda con 'si', 'no' o 'ver'.");
-      seleccion = prompt("¿Desea seguir comprando? (si/no/ver)");
-    }
-  } else {
-    alert("Producto no encontrado");
-    seleccion = prompt("¿Desea seguir comprando o ver su carrito? (si/no/ver)");
-  }
-}
+    const modalHeader = document.createElement("div");
+    modalHeader.className = "barra-header"
+    modalHeader.innerHTML = ` 
+    <h2 class= "modal-header-titulo"> Carrito. </h2>` ;
+
+    barraContainer.append(modalHeader);
+    const modalButton = document.createElement("h2");
+    modalButton.innerText = "x";
+    modalButton.className = "barra-header-button";
+    modalHeader.append(modalButton);
+
+    carrito.forEach((producto) => {
+      let carritoContent = document.createElement("div")
+    carritoContent.className = "modal-content"
+    carritoContent.innerHTML = `
+    <h2> ${producto.nombre}</h2>
+    <p> ${producto.precio} $ </p>
+    `;
+
+      modalContainer.append(carritoContent);
+
+    });
+  })
+

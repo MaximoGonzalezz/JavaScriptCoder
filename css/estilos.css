@@ -1,4 +1,104 @@
-* {
+body {
+margin: 0px;
+}
+
+.nav-container {
+  position: sticky;
+  z-index: 3;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: black;
+  
+}
+
+.navbar{
+  display: flex;
+  justify-content: space-between;
+  height: 12vh;
+  background-color: black;
+}
+
+.navbar-logo{
+  justify-self: start;
+  margin-left: 20px;
+  color: white;
+  margin-top: 4vh;
+  cursor: pointer;
+}
+
+.ver-carrito{
+  font-size: 25px;
+  margin-right: 20px;
+  margin-top: 3.5vh;
+  cursor: pointer;
+}
+
+.banner{
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.4),rgba(0,0,0,0.4)), url(../img/240859195_661184601519975_241425869140093028_n.jpg);
+
+}
+
+.banner-container{
+  text-align: center;
+  padding: 15% 0;
+}
+.banner h1{
   margin: 0;
-  padding: 0;
-  box-sizing: border-box; }
+  color: white;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+  font-size: 60px;
+  font-weight: bold;
+}
+
+.banner p{
+  font-size: 30px;
+  color: white;
+  opacity: 30px;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+  
+}
+.shop-contenedor{
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 30px;
+  margin-left: 80px;
+  margin-right: 80px;
+}
+
+.card{
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  max-width: 300px;
+  margin: auto;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.card > img{
+  width: 90px;
+  height: 250px;
+}
+
+.precio{
+  color: grey;
+  font-size: 22px;
+}
+
+.card button{
+  border: none;
+  outline: 0;
+  padding: 12px;
+  color: white;
+  background-color: black;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+  font-size: 18px;
+}
+.card button:hover{
+  opacity: 0.7;
+}
